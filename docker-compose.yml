@@ -149,21 +149,12 @@ services:
       - ./taiga-gateway/taiga.conf:/etc/nginx/conf.d/default.conf
       - taiga-static-data:/taiga/static
       - taiga-media-data:/taiga/media
-      - letsencrypt:/etc/letsencrypt
-      - certbot-webroot:/var/www/certbot
     networks:
       - taiga
     depends_on:
       - taiga-front
       - taiga-back
       - taiga-events
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - letsencrypt:/etc/letsencrypt
-      - certbot-webroot:/var/www/certbot
-    entrypoint: /bin/sh
 
 volumes:
   taiga-static-data:
@@ -171,8 +162,6 @@ volumes:
   taiga-db-data:
   taiga-async-rabbitmq-data:
   taiga-events-rabbitmq-data:
-  letsencrypt:
-  certbot-webroot:
 
 networks:
   taiga:
